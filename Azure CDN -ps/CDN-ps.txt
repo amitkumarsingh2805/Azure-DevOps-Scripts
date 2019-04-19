@@ -1,0 +1,11 @@
+New-AzureRmCdnProfile -ProfileName TestCDN -ResourceGroupName amtest12 -Sku Standard_Akamai -Location "Central US"
+
+
+# Get an existing endpoint
+$endpoint = Get-AzureRmCdnEndpoint -ProfileName TestCDN -ResourceGroupName amtest12 -EndpointName NewEndpoint
+
+# Check the mapping
+$result = Test-AzureRmCdnCustomDomain -CdnEndpoint $endpoint -CustomDomainHostName "cdn.contoso.com"
+
+# Create the custom domain on the endpoint
+If($result.CustomDomainValidated){ New-AzureRmCdnCustomDomain -CustomDomainName Contoso -HostName "cdn.contoso.com" -CdnEndpoint $endpoint }

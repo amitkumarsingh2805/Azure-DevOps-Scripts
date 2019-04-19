@@ -1,0 +1,7 @@
+#1 - Attach a disk to an existing VM
+
+#2 - Resizing a disk
+
+#3 - Removing a disk
+
+#4 - Snapshotting an OS volume and creating a VM from a snapshot

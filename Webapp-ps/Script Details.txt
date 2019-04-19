@@ -1,0 +1,2 @@
+1. Create the App Service Plan (ASP)
+2. Create the Azure App Service Web App

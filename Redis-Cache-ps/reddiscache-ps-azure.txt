@@ -1,0 +1,15 @@
+New-AzureRmRedisCache -Name
+-ResourceGroupName amtest-12
+-Location West Europe
+-Size P1
+-Sku Premium
+-MaxMemoryPolicy 
+-RedisConfiguration
+-EnableNonSslPort true
+-ShardCount 5
+-VirtualNetwork amtest-12-vnet
+-Subnet 
+-StaticIP
+
+
+New-AzureRmRedisCache -Name testreddis -ResourceGroupName amtest-12 -Location WestEurope -Size P1 -Sku Premium -ShardCount 5

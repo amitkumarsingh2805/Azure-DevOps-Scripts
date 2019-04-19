@@ -1,0 +1,55 @@
+###create new resource group
+az group create\
+--name "NAME OF RG"\
+--location "LOCATION OF RG"
+
+1. ###create cm from custom image that is in other region
+az vm create\
+--location "LOCATION OF CUSTOM IMAGE"\
+-resource-group "NAME OF RESOURCE GROUP"\
+--name "NAME OF VM"\
+--image "IMAGE NAME"\
+--admin-username demouser\
+--ssh-key-value ~/.ssh/id_rsa.pub
+
+2. ###copy image between resource group and regions
+az image copy\
+--source-object-name "NAME OF SOURCE IMAGE"\
+--source-resource-group "NAME OF SOURCE RG"\
+--target-loction "LOCATION OF TARGET"\
+--target-name "NAME OF TARGET"
+--cleanup
+
+3. ###Look at currently provision VMs
+az vm list\
+--output table
+
+4. ###list all images in sunscription
+az image list\
+--output table
+
+5. ###look at vms
+az vm list\
+--output table
+
+
+6. ### delete specific image
+az image delete\
+--resource-group ""\
+--name ""
+
+7. ####delete specic image
+az image delete\
+--resource-group "NAME OF RG"\
+--name "NAME OF IMAGE"
+
+
+
+
+
+
+
+
+
+https://michaelcollier.wordpress.com/2017/05/03/copy-managed-images/        --------------powershell 
+https://www.microsoft.com/developerblog/2018/02/15/copy-custom-vm-images-on-azure/--------CLI

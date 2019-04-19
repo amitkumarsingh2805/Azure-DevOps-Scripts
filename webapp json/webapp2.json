@@ -1,0 +1,73 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"webAppName": {
+			"type": "string",
+			"metadata": {
+				"description": "Name of the webApp"
+			}
+		},
+		
+		"appPlanName": {
+			"type": "string",
+			"metadata": {
+				"description": "Service Plan Name of the webApp"
+			}
+		},
+		
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]",
+			"metadata": {
+				"description": "Location of the resource group"
+			}
+		},
+		
+		"sku": {
+			"type": "string",
+			"defaultValue": "S1",
+			"metadata": {
+				"description": "Pricing Tier for app service plan created"
+			}
+		}
+	},
+	
+	"variables": {
+		
+	},
+	
+	"resources": [
+		{
+			"apiVersion": "2017-08-01",
+			"type": "Microsoft.Web/serverfarms",
+			"kind": "app",
+			"name": "[parameters('appPlanName')]",
+			"location": "[parameters('location')]",
+			"sku": {
+				"name": "[parameters('sku')]"
+			},	
+			"properties": {},
+			"dependsOn": []	
+		},
+		
+		{
+			"apiVersion": "2016-08-01",
+			"type": "Microsoft.Web/sites",
+			"kind": "app",
+			"name": "[parameters('webAppName')]",
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/serverfarms',parameters('appPlanName'))]"
+			],
+			"properties": {
+				"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appPlanName'))]"
+			}	
+		}
+	],
+	
+	"outputs": {
+		
+	}
+}
+	

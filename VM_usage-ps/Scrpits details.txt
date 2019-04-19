@@ -1,0 +1,4 @@
+1. Make a PowerShell script which checks the timezone of the user & displays it. 
+2. Further check whether the user is working in business hours & Check CPU,MEMORY & DISK Utilization. 
+3. If CPU/MEMORY is above threshold then display Top 10 CPU/MEMORY consuming processes.
+4. If user is not in business hours then Display a message. 

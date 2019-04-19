@@ -1,0 +1,7 @@
+Create Azure CDN with endpoint
+
+
+
+
+further study
+https://docs.microsoft.com/en-us/azure/cdn/cdn-manage-powershell

@@ -1,0 +1,57 @@
+####Resizing a disk
+
+
+
+####1. Stop and dellocate the vm
+az vm deallocate\
+--resource-group "xx"\
+--name "xx"
+
+####2. Find the disk's name we want to expand
+az disk list\
+--output table
+
+####3. Update the disk's size to the desired size
+az disk update\
+--resource-group "xx"\
+--name "xx"\
+--size-gb 100
+
+####4. start upp the VM again
+az vm start\
+--resource-group "xx"\
+--name "xx"
+
+####5. Log intyo guest OS and resize the volume
+az vm list-ip-address\
+--name "xx"\
+output table
+
+
+####6. Unmount filesysytem and expand the partition
+sudo vi/etc/fstab
+
+
+sudo unmount/data1
+sudo parted /dev/sdc
+
+#### Use print to find the size of the new disk, partion1, resize,set the size to 107,quit
+print
+resizepart
+1
+107GB
+quit
+
+
+####7. fsck,expand and mount the filesysytem
+sudo e2fsck -f /dev/sdc1
+sudo resize2fs/dev/sdc1
+sudo mount/dev/sdc1/data1
+sudo vi/etc/fstab
+
+
+####8. verify the added space is avilable
+df -h |grep data1
+
+
+r

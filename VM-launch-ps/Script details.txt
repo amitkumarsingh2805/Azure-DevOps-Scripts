@@ -1,0 +1,10 @@
+# Create user object
+# Create a resource group
+# Create a subnet configuration
+# Create a virtual network
+# Create a public IP address and specify a DNS name
+# Create an inbound network security group rule for port 3389
+# Create a network security group
+# Create a virtual network card and associate with public IP address and NSG
+# Create a virtual machine configuration
+# Create a virtual machine

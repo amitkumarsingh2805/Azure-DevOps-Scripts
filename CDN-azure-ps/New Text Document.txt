@@ -1,0 +1,50 @@
+New-AzureRmCdnEndpoint
+   -EndpointName <String>
+   -ProfileName <String>
+   -ResourceGroupName <String>
+   -Location <String>
+   [-OriginHostHeader <String>]
+   [-OriginPath <String>]
+   [-ContentTypesToCompress <String[]>]
+   [-IsCompressionEnabled <Boolean>]
+   [-IsHttpAllowed <Boolean>]
+   [-IsHttpsAllowed <Boolean>]
+   [-QueryStringCachingBehavior <PSQueryStringCachingBehavior>]
+   -OriginName <String>
+   -OriginHostName <String>
+   [-HttpPort <Int32>]
+   [-HttpsPort <Int32>]
+   [-OptimizationType <String>]
+   [-ProbePath <String>]
+   [-GeoFilters <PSGeoFilter[]>]
+   [-DeliveryPolicy <PSDeliveryPolicy>]
+   [-Tag <Hashtable>]
+   [-DefaultProfile <IAzureContextContainer>]
+   [-WhatIf]
+   [-Confirm]
+   [<CommonParameters>]
+   
+   
+   New-AzureRmCdnEndpoint
+   -EndpointName <String>
+   -CdnProfile <PSProfile>
+   [-OriginHostHeader <String>]
+   [-OriginPath <String>]
+   [-ContentTypesToCompress <String[]>]
+   [-IsCompressionEnabled <Boolean>]
+   [-IsHttpAllowed <Boolean>]
+   [-IsHttpsAllowed <Boolean>]
+   [-QueryStringCachingBehavior <PSQueryStringCachingBehavior>]
+   -OriginName <String>
+   -OriginHostName <String>
+   [-HttpPort <Int32>]
+   [-HttpsPort <Int32>]
+   [-OptimizationType <String>]
+   [-ProbePath <String>]
+   [-GeoFilters <PSGeoFilter[]>]
+   [-DeliveryPolicy <PSDeliveryPolicy>]
+   [-Tag <Hashtable>]
+   [-DefaultProfile <IAzureContextContainer>]
+   [-WhatIf]
+   [-Confirm]
+   [<CommonParameters>]

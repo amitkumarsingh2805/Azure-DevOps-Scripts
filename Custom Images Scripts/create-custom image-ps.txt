@@ -1,0 +1,31 @@
+%WINDIR%\system32\sysprep\sysprep.exe /generalize / shutdown /oobe
+
+###Find the resource group
+$rg = Get-AzureRmResourceGroup -name amtest12 -Location 'central us'
+
+###Get azure vm
+$vm = Get-AzureRmVM -ResourceGroupName amtest12 -Name new-demo-vm
+
+###Deallocate the virtual machine
+Stop-AzureRmVM -ResourceGroupName $rg.ResourceGroupName -Name $vm.Name -Force
+
+###check the status of the VM tos see if it's deallocated
+Get-AzureRmVM -ResourceGroupName $rg.ResourceGroupName -Name $vm.Name -Status
+
+###mark the virtual machine as 'genralized'
+ Set-AzureRmVM -ResourceGroupName $rg.ResourceGroupName -Name $vm.Name -Generalized
+
+ ###start an image configuration from our source virtual machine $vm
+$image = New-AzureRmImageConfig -Location $rg.Location -SourceVirtualMachineId $vm.Id
+
+###create a VM from the custom image config we just created
+New-AzureRmImage -ResourceGroupName $rg.ResourceGroupName -Image $image -ImageName "new-demo-image"
+
+
+#summary image information
+Get-AzureRmImage -ResourceGroupName $rg.ResourceGroupName
+
+
+
+
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/capture-image-resource

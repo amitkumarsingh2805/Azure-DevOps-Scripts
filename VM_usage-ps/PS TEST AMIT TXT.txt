@@ -1,0 +1,44 @@
+$timezone=Get-TimeZone
+echo "Time zone is $timezone"
+echo "Time is"
+Get-Date -UFormat %R                                              #Time in 24 hour format
+$time=(Get-Date).hour+((Get-Date).Minute)/100                     #Calculating Time in hh.mm format
+if (($time -gt 10.30) -and ($time -lt 20.00))                     #Checking whether Business Hours are going on or not
+{
+  echo "Business Hours "
+########################################                          #Checking the CPU Usage
+    $cpu= Get-WmiObject win32_processor | select LoadPercentage
+    if ($cpu.LoadPercentage -lt 50)
+    {
+    echo "CPU Threshold Maintain"                                 #Checking whether CPU Usage in Threshold Level
+    }
+    else
+    {
+    echo "CPU Threshold Breach"
+    echo "Top 10 CPU consuming Processes are"                    #Display top 10 CPU consuming process
+    echo(Get-Process | Sort-Object -Descending CPU | Select-Object Name,Id,CPU -First 10 | Format-Table)
+    }
+########################################                          #Checking the memory usage
+    $mem = Get-WmiObject -Class win32_operatingsystem | Select-Object @{Name = "MemoryUsage"; Expression = {“{0:N2}” -f ((($_.TotalVisibleMemorySize - $_.FreePhysicalMemory)*100)/ $_.TotalVisibleMemorySize) }}
+    if ($mem.MemoryUsage -lt 70)
+    {
+    echo "Memory Threshold Maintain"                              #Checking whether Memory usage in Threshold Level
+    }
+    else
+    {
+    echo "Memory Threshold Breach"
+    echo "Top 10 Memory Consuming Processes are"                  #Display top 10 memory consuming process
+    echo(Get-Process | Sort-Object -Descending WS | Select-Object Name,Id,WS -First 10 | Format-Table)
+    }
+#######################################                           #Checking the Disk Utilization
+    $disk = Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'" | Select-Object Size,FreeSpace
+
+#######################################                           #Display of all parameters
+    echo "CPU Use in percentage is" $cpu.LoadPercentage
+    echo "Memory Usage in percentage is" $mem.MemoryUsage
+    echo "Disk Utilization in percentage is " (100 - ($disk.FreeSpace/$disk.Size)*100)
+}
+else
+{
+  echo "Business Hours Over"
+}

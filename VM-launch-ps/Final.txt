@@ -1,0 +1,82 @@
+[void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+
+# Variables for common values
+$title1 = 'Resource Group'
+$msg1   = 'Enter your Resource Group Name:'
+$resourceGroup = [Microsoft.VisualBasic.Interaction]::InputBox($msg1, $title1)
+
+$title2 = 'Location'
+$msg2   = 'Enter your Resource Group Location:'
+$location = [Microsoft.VisualBasic.Interaction]::InputBox($msg2, $title2)
+
+$title3 = 'Virtual Machine Name'
+$msg3   = 'Enter your Virtual Machine Name:'
+$vmName = [Microsoft.VisualBasic.Interaction]::InputBox($msg3, $title3)
+
+$title4 = 'Subnet Name'
+$msg4   = 'Enter Subnet Name:'
+$subnetname = [Microsoft.VisualBasic.Interaction]::InputBox($msg4, $title4)
+
+$title5 = 'Subnet Address'
+$msg5   = 'Enter Subnet Name:'
+$subnetaddress = [Microsoft.VisualBasic.Interaction]::InputBox($msg5, $title5)
+
+$title6 = 'Vnetname'
+$msg6   = 'Enter Vnet Name:'
+$vnetname = [Microsoft.VisualBasic.Interaction]::InputBox($msg6, $title6)
+
+$title7 = 'Vnet address'
+$msg7   = 'Enter Vnet Address:'
+$vnetaddress = [Microsoft.VisualBasic.Interaction]::InputBox($msg7, $title7)
+
+$title8 = 'VM Size'
+$msg8   = 'Enter Virual Machine Size:'
+$vmsize = [Microsoft.VisualBasic.Interaction]::InputBox($msg8, $title8)
+
+$title9 = 'Publisher Name'
+$msg9   = 'Enter Publisher Name:'
+$publishername = [Microsoft.VisualBasic.Interaction]::InputBox($msg9, $title9)
+
+$title10 = 'skus'
+$msg10   = 'Enter Publisher Name:'
+$skus = [Microsoft.VisualBasic.Interaction]::InputBox($msg10, $title10)
+
+
+# Create user object
+$cred = Get-Credential -Message "Enter a username and password for the virtual machine."
+
+# Create a resource group
+New-AzureRmResourceGroup -Name $resourceGroup -Location $location
+
+# Create a subnet configuration
+$subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name $subnetname -AddressPrefix $subnetaddress
+
+# Create a virtual network
+$vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location `
+  -Name $vnetname -AddressPrefix $vnetaddress -Subnet $subnetConfig
+
+# Create a public IP address and specify a DNS name
+$pip = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location `
+  -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
+
+# Create an inbound network security group rule for port 3389
+$nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp `
+  -Direction Inbound -Priority 1000 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * `
+  -DestinationPortRange 3389 -Access Allow
+
+# Create a network security group
+$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location `
+  -Name myNetworkSecurityGroup -SecurityRules $nsgRuleRDP
+
+# Create a virtual network card and associate with public IP address and NSG
+$nic = New-AzureRmNetworkInterface -Name myNic -ResourceGroupName $resourceGroup -Location $location `
+  -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $pip.Id -NetworkSecurityGroupId $nsg.Id
+
+# Create a virtual machine configuration
+$vmConfig = New-AzureRmVMConfig -VMName $vmName -VMSize $vmsize | `
+Set-AzureRmVMOperatingSystem -Windows -ComputerName $vmName -Credential $cred | `
+Set-AzureRmVMSourceImage -PublisherName $publishername -Offer WindowsServer -Skus $skus -Version latest | `
+Add-AzureRmVMNetworkInterface -Id $nic.Id
+
+# Create a virtual machine
+New-AzureRmVM -ResourceGroupName $resourceGroup -Location $location -VM $vmConfig

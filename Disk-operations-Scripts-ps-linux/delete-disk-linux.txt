@@ -1,0 +1,18 @@
+#Removing a disk
+
+####1. Unmount the disk in the OS, remove the 
+sudo vi/etc/fstab
+sudo mount/data1
+df-h |grep/data1
+exit
+
+####2.Detaching the disk from virtual machine
+az vm dik detach\
+--resource-group "xx"\
+--vm-name "xx"\
+--name "xx"
+
+####3. Delete the disk
+az disk delete\
+--resource-group "xx"\
+--name "xx"

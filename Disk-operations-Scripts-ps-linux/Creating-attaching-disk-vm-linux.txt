@@ -1,0 +1,45 @@
+####1. Attach the new disk
+az vm disk attach\
+--resource-group "XX"\
+--vm-name "XX"\
+--disk "xx"\
+--new
+--size-gb 25\
+--sku "Premium_LRS"
+
+####2. Prepare the disk for use by the operating system
+az vm list-ip-address\
+--name "XX"\
+-output table
+
+
+####3. Find the new block device, we konw /dev/sda in the OS, and /dev/sdb is temporary disk
+lsblk
+
+
+####4. Partion the disk with fdisk and use the command
+sudo fdisk/dev/sdc
+m
+n
+p
+l
+w
+
+
+#####5. Fomat the new partion with ext4
+sudo mkfs -t ext4 /dev/sdc1
+
+#####6. Make a directory to mount the new disk
+sudo mkdir/data1
+
+#####7. Add the fillowing line to /etc/fstab.
+sudo -i blkid | grep sdc1
+
+
+UUID=XXXXXXXXXXXXXXXXXXXXX   /data ext4 defaults 0 0 
+sudo vi /etc/fstab
+
+
+#####8. Mount the volume and verify the file system is mounted.
+sudo mount -a
+df-h

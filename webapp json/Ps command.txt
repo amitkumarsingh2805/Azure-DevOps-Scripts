@@ -1,0 +1,1 @@
+New-AzureRMResourceGroupDeployment -Name 123 -ResourceGroupName amtest12 -TemplateParameterFile "C:\Users\amitkumar_sin\Desktop\para.json" -TemplateFile "C:\Users\amitkumar_sin\Desktop\arm4.json" 

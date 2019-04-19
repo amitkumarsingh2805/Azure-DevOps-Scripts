@@ -1,0 +1,16 @@
+amtest-12
+westeurope
+myVM
+mySubnet
+192.168.1.0/24
+MYvNET
+192.168.0.0/16
+Standard_B1s
+MicrosoftWindowsServer
+2016-Datacenter
+
+
+
+je2e>tCsV2
+
+je2e>tCsV21111111

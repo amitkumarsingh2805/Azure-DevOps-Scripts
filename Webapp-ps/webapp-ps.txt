@@ -1,0 +1,4 @@
+New-AzureRmAppServicePlan -Name amtest-12 -Location "West Europe" -ResourceGroupName amtest-12 -Tier Free
+
+New-AzureRmWebApp -Name newwebapptesting -AppServicePlan amtest-12 -ResourceGroupName amtest-12 -Location "West Europe" 
+Get-AzureRmWebApp -ResourceGroupName "amtest-12" -Name "newwebapptesting"

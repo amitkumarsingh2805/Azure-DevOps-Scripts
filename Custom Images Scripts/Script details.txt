@@ -1,0 +1,9 @@
+#Generalizing and creating a custom image using PowerShell
+
+#Setup - pre-stage the RDP connection for the Windows VM - 'psdemo-win-1'
+
+#Ensure we're in the PowerShell Integrated Console.
+
+
+
+

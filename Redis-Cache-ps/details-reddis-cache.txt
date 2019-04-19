@@ -1,0 +1,71 @@
+PS C:\> Get-Help New-AzureRmRedisCache -detailed
+
+NAME
+    New-AzureRmRedisCache
+
+SYNOPSIS
+    Creates a new Azure Cache for Redis.
+
+
+SYNTAX
+    New-AzureRmRedisCache -Name <String> -ResourceGroupName <String> -Location <String> [-RedisVersion <String>]
+    [-Size <String>] [-Sku <String>] [-MaxMemoryPolicy <String>] [-RedisConfiguration <Hashtable>] [-EnableNonSslPort
+    <Boolean>] [-ShardCount <Integer>] [-VirtualNetwork <String>] [-Subnet <String>] [-StaticIP <String>]
+    [<CommonParameters>]
+
+
+DESCRIPTION
+    The New-AzureRmRedisCache cmdlet creates a new Azure Cache for Redis.
+
+
+PARAMETERS
+    -Name <String>
+        Name of the Azure Cache for Redis to create.
+
+    -ResourceGroupName <String>
+        Name of resource group in which to create the Azure Cache for Redis.
+
+    -Location <String>
+        Location in which to create the Azure Cache for Redis.
+
+    -RedisVersion <String>
+        RedisVersion is deprecated and will be removed in future release.
+
+    -Size <String>
+        Size of the Azure Cache for Redis. The default value is 1GB or C1. Possible values are P1, P2, P3, P4, C0, C1, C2, C3,
+        C4, C5, C6, 250MB, 1GB, 2.5GB, 6GB, 13GB, 26GB, 53GB.
+
+    -Sku <String>
+        Sku of Azure Cache for Redis. The default value is Standard. Possible values are Basic, Standard and Premium.
+
+    -MaxMemoryPolicy <String>
+        The 'MaxMemoryPolicy' setting has been deprecated. Please use 'RedisConfiguration' setting to set
+        MaxMemoryPolicy. e.g. -RedisConfiguration @{"maxmemory-policy" = "allkeys-lru"}
+
+    -RedisConfiguration <Hashtable>
+        All Redis Configuration Settings. Few possible keys: rdb-backup-enabled, rdb-storage-connection-string,
+        rdb-backup-frequency, maxmemory-reserved, maxmemory-policy, notify-keyspace-events, hash-max-ziplist-entries,
+        hash-max-ziplist-value, set-max-intset-entries, zset-max-ziplist-entries, zset-max-ziplist-value, databases.
+
+    -EnableNonSslPort <Boolean>
+        EnableNonSslPort is used by Azure Cache for Redis. If no value is provided, the default value is false and the
+        non-SSL port will be disabled. Possible values are true and false.
+
+    -ShardCount <Integer>
+        The number of shards to create on a Premium Cluster Cache.
+
+    -VirtualNetwork <String>
+        The exact ARM resource ID of the virtual network to deploy the Azure Cache for Redis in. Example format: /subscriptions/{
+        subid}/resourceGroups/{resourceGroupName}/providers/Microsoft.ClassicNetwork/VirtualNetworks/{vnetName}
+
+    -Subnet <String>
+        Required when deploying an Azure Cache for Redis inside an existing Azure Virtual Network.
+
+    -StaticIP <String>
+        Required when deploying an Azure Cache for Redis inside an existing Azure Virtual Network.
+
+    <CommonParameters>
+        This cmdlet supports the common parameters: Verbose, Debug,
+        ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+        OutBuffer, PipelineVariable, and OutVariable. For more information, see
+        about_CommonParameters (https://go.microsoft.com/fwlink/?LinkID=113216).
