@@ -1,0 +1,32 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "storageId": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "dependsOn": [],
+            "apiVersion": "2015-10-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "storageAccounts": [
+                    {
+                        "isPrimary": true,
+                        "id": "[parameters('storageId')]"
+                    }
+                ]
+            },
+            "type": "microsoft.media/mediaservices"
+        }
+    ]
+}

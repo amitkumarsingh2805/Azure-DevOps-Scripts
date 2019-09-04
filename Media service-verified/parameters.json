@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "value": "palakmedia"
+        },
+        "location": {
+            "value": "eastus2"
+        },
+        "storageId": {
+            "value": "/subscriptions/cd900bc9-f67e-4873-9d53-eedd4d3fcca9/resourceGroups/TEST/providers/Microsoft.Storage/storageAccounts/storagerxhhnf3shuhjk"
+        }
+    }
+}

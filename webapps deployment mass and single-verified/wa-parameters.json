@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "value": "RANDOM-WEBSITE"
+    },
+    "hostingPlanName": {
+      "value": "RANDOM-WEBSITE-HOSTING"
+    },
+	"sku": {
+	"allowedValues": [
+        "F1",
+        "D1",
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ],
+      "value": "S1",
+	}
+  }
+}

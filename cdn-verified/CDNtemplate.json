@@ -1,0 +1,29 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string",
+			"defaultValue": "[uniqueString(resourceGroup().id)]"
+        },
+        "location": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "object"
+        },
+        "properties": {
+            "type": "object"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-04-02",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "sku": "[parameters('sku')]",
+            "properties": "[parameters('properties')]",
+            "type": "microsoft.cdn/profiles"
+        }
+    ]
+}

@@ -1,0 +1,56 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.3.0.0",
+    "parameters": {
+        "name": {
+            "type": "string",
+			"defaultValue": "[uniqueString(resourceGroup().id)]"  
+        },
+        "location": {
+            "type": "string"
+        },
+        "apiVersion": {
+            "type": "string",
+			"defaultValue": "[uniqueString(resourceGroup().id)]"
+        },
+        "sku": {
+            "type": "string"
+        },
+        "jobType": {
+            "defaultValue": "Cloud",
+            "type": "string"
+        },
+        "streamingUnits": {
+            "defaultValue": 1,
+            "type": "int"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "type": "Microsoft.StreamAnalytics/streamingjobs",
+            "properties": {
+                "sku": {
+                    "name": "[parameters('sku')]"
+                },
+                "outputErrorPolicy": "stop",
+                "eventsOutOfOrderPolicy": "adjust",
+                "eventsOutOfOrderMaxDelayInSeconds": 0,
+                "eventsLateArrivalMaxDelayInSeconds": 5,
+                "dataLocale": "en-US",
+                "jobType": "[parameters('jobType')]",
+                "inputs": [],
+                "transformation": {
+                    "name": "Transformation",
+                    "properties": {
+                        "query": "SELECT\r\n    *\r\nINTO\r\n    [YourOutputAlias]\r\nFROM\r\n    [YourInputAlias]",
+                        "streamingUnits": "[parameters('streamingUnits')]"
+                    }
+                },
+                "compatibilityLevel": "1.1"
+            }
+        }
+    ]
+}
